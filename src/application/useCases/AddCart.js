@@ -59,4 +59,4 @@ class CartUseCase {
     }
 }
 
-module.exports = new CartUseCase();
+module.exports = CartUseCase;

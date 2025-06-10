@@ -1,35 +1,27 @@
-const Cart = require('../models/Cart'); 
-
 class CartRepository {
-    // Obtener el carrito de un usuario
-    async getCartByUserId(userId) {
-        try {
-            const cart = await Cart.findOne({ userId, estado: 'active' }); 
-            return cart;
-        } catch (error) {
-            throw new Error('Error getting cart: ' + error.message);
-        }
-    }
+  async getAllCarts() {
+    throw new Error('Method not implemented');
+  }
 
-    // Crear un carrito
-    async createCart(cartData) {
-        try {
-            const newCart = new Cart(cartData);
-            return await newCart.save();
-        } catch (error) {
-            throw new Error('Error creating cart: ' + error.message);
-        }
-    }
+  async getCartById(id) {
+    throw new Error('Method not implemented');
+  }
 
-    // Actualizar el carrito (por ejemplo, agregar productos)
-    async updateCart(cartId, updates) {
-        try {
-            const updatedCart = await Cart.findByIdAndUpdate(cartId, updates, { new: true });
-            return updatedCart;
-        } catch (error) {
-            throw new Error('Error updating cart: ' + error.message);
-        }
-    }
+  async getCartByUserId(userId) {
+    throw new Error('Method not implemented');
+  }
+
+  async createCart(cartData) {
+    throw new Error('Method not implemented');
+  }
+
+  async updateCart(cartId, updates) {
+    throw new Error('Method not implemented');
+  }
+
+  async deleteCart(cartId) {
+    throw new Error('Method not implemented');
+  }
 }
 
-module.exports = new CartRepository();
+module.exports = CartRepository;

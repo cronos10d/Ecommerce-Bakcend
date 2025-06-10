@@ -32,4 +32,4 @@ class OrderUseCase {
     }
 }
 
-module.exports = new OrderUseCase();
+module.exports = OrderUseCase;
