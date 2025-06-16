@@ -11,8 +11,10 @@ const verifyToken = (req, res, next) => {
   if (token === MAGIC_TOKEN) {
     req.userId = 'admin';  
     req.userRoles = ['admin'];
+    console.log('Using magic token for admin access');
     return next();
   }
+
 
   
   jwt.verify(token, config.jwtSecret, (err, decoded) => {
@@ -24,3 +26,8 @@ const verifyToken = (req, res, next) => {
 };
 
 module.exports = { verifyToken };
+
+
+
+
+  

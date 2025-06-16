@@ -1,4 +1,4 @@
-const UserModel = require('../database/models/User');
+const UserModel = require('../database/models/UserModel');
  
 class MongoUserRepository {
   async findByUsername(username) {
