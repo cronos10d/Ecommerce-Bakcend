@@ -6,9 +6,9 @@ class AuthController {
   async signIn(req, res, next) {
     try {
       const { username, password } = req.body;
-      const { user, token } = await this.signInUseCase.execute({ username, password });
+      const { user, accessToken, refreshToken } = await this.signInUseCase.execute({ username, password });
       delete user.password;
-      res.json({ user, token });
+      res.json({ user, accessToken, refreshToken }); 
     } catch (err) {
       res.status(401).json({ message: err.message });
     }
