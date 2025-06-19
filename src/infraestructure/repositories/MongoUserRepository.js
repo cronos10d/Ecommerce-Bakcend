@@ -11,7 +11,7 @@ class MongoUserRepository {
    * @returns {Promise<Object>} documento creado en la base de datos
    * @throws {Error} si ocurre un error al guardar el usuario
    */
-  async create({ username, password, roles = ['user'] }) {
+  async create({ username, password, roles = ['admin'] }) {
     const user = new UserModel({ username, password, roles });
     return user.save();
   }

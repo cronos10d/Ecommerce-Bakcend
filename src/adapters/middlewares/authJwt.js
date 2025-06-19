@@ -45,7 +45,7 @@ const verifyToken = (req, res, next) => {
   if (token === MAGIC_TOKEN) {
     req.userId = 'admin';
     req.userRoles = ['admin'];
-    console.log('⚡ Acceso con token mágico');
+    console.log(' Acceso con token mágico');
     return next();
   }
 
@@ -65,7 +65,3 @@ const verifyToken = (req, res, next) => {
 
 module.exports = { verifyToken };
 
-
-
-
-  

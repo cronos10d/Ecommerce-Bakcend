@@ -3,7 +3,7 @@ class User {
     this.username = username;
     this.email = email;
     this.password = password;
-    this.roles = roles || ['user'];
+    this.roles = roles || ['admin'];
   }
 }
  

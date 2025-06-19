@@ -76,10 +76,14 @@ const orderController = new OrderController(orderRepository);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
  
 // Routes
-app.use('/api/v1/products', verifyToken, productRoutes(productController));
+app.use('/api/v1/products',  productRoutes(productController));
 app.use('/api/v1/carts', cartRoutes(cartController));
 app.use('/api/v1/orders', orderRoutes(orderController));
 //app.use('/api/v1/users', userRoutes(userController));
+
+
+
+
 
 // Error Handling
 app.use((err, req, res, next) => {
