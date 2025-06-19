@@ -26,7 +26,12 @@ const MySQLOrderRepository = require('./infraestructure/repositories/MySQLOrderR
 const OrderController = require('./adapters/controllers/OrderController');
 const orderRoutes = require('./adapters/routes/orderRoutes');
 
-
+/*
+const MongoCuponRepository = require('./infraestructure/repositories/MongoCuponRepository');
+const MySQLCuponRepository = require('./infraestructure/repositories/MySQLCuponRepository');
+const CuponController = require('./adapters/controllers/CuponController');
+const orderRoutes = require('./adapters/routes/orderRoutes');
+*/
 
 const MongoUserRepository = require('./infraestructure/repositories/MongoUserRepository');
 const MySQLUserRepository = require('./infraestructure/repositories/MySQLUserRepository');
@@ -66,7 +71,7 @@ app.use('/api/v1/users',express.json(),userRoutes(signUpUseCase));
 
 const cartRepository = dbType === 'mysql' ? new MySQLCartRepository() : new MongoCartRepository();
 const orderRepository = dbType === 'mysql' ? new MySQLOrderRepository() : new MongoOrderRepository();
-//const cuponRepository = dbType === 'mysql' ? new MySQLCuponRepository() : new MongoCuponRepository();
+const cuponRepository = dbType === 'mysql' ? new MySQLCuponRepository() : new MongoCuponRepository();
 //const userRepository = dbType === 'mysql' ? new MySQLUserRepository() : new MongoUserRepository();
 
 
