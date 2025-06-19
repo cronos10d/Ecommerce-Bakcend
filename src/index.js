@@ -26,6 +26,8 @@ const MySQLOrderRepository = require('./infraestructure/repositories/MySQLOrderR
 const OrderController = require('./adapters/controllers/OrderController');
 const orderRoutes = require('./adapters/routes/orderRoutes');
 
+
+
 const MongoUserRepository = require('./infraestructure/repositories/MongoUserRepository');
 const MySQLUserRepository = require('./infraestructure/repositories/MySQLUserRepository');
 const UserController = require('./adapters/controllers/UserController');
@@ -64,12 +66,14 @@ app.use('/api/v1/users',express.json(),userRoutes(signUpUseCase));
 
 const cartRepository = dbType === 'mysql' ? new MySQLCartRepository() : new MongoCartRepository();
 const orderRepository = dbType === 'mysql' ? new MySQLOrderRepository() : new MongoOrderRepository();
+//const cuponRepository = dbType === 'mysql' ? new MySQLCuponRepository() : new MongoCuponRepository();
 //const userRepository = dbType === 'mysql' ? new MySQLUserRepository() : new MongoUserRepository();
 
 
 const productController = new ProductController(productRepository);
 const cartController = new CartController(cartRepository);
 const orderController = new OrderController(orderRepository);
+const cuponController = new OrderController(orderRepository);
 //const userController = new UserController(userRepository);
 
 // Configuración de Swagger UI
@@ -79,6 +83,7 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 app.use('/api/v1/products',  productRoutes(productController));
 app.use('/api/v1/carts', cartRoutes(cartController));
 app.use('/api/v1/orders', orderRoutes(orderController));
+app.use('/api/v1/cupons', orderRoutes(cuponController));
 //app.use('/api/v1/users', userRoutes(userController));
 
 
