@@ -1,15 +1,11 @@
-const Product = require('../../domain/entities/Product');
- 
-class CreateProduct {
-  constructor(productRepository) {
-    this.productRepository = productRepository;
-  }
- 
-  async execute(productData) {
-    const product = new Product(productData);
-    return await this.productRepository.create(product);
+class Cupon{
+  constructor({ cupon, discount, expirationDate, timestamps }) {
+    this. cupon = cupon;
+    this.discount = discount;
+    this.expirationDate = expirationDate;
+    this.timestamps = timestamps;
+    
   }
 }
- 
-module.exports = CreateProduct;
- 
+
+module.exports = Cupon;
