@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authorizeRole = require('../middlewares/AdminProduct');
-const { verifyToken } = require('../middleware/authJwt');
+const { verifyToken } = require('../middlewares/authJwt');
 module.exports = (productController) => {
 
   /*
@@ -37,11 +37,36 @@ module.exports = (productController) => {
  
   /* router.post('/', (req, res) => productController.create(req, res));*/
     router.post('/', verifyToken, authorizeRole(['admin']), (req, res) => productController.create(req, res));
+    /**
+   * @swagger
+   * /api/v1/products:
+   *   post:
+   *     summary: Crea un nuevo producto
+   *     tags: [Products]
+   *     security:
+   *       - BearerAuth: []
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             $ref: '#/components/schemas/Product'
+   *     responses:
+   *       201:
+   *         description: Producto creado exitosamente
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Product'
+   *       400:
+   *         description: Datos de producto inválidos
+   *       401:
+   *         description: No autorizado
+   */
     
 
-  /*router.get('/', (req, res) => productController.create(req, res));*/
-  router.get('/', (req, res) => productController.getAll(req, res));
-  return router;
+    router.get('/', (req, res) => productController.getAll(req, res));
+    return router;
 
 
   

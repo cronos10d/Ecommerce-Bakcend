@@ -53,8 +53,4 @@ class TokenGenerator {
   }
 }
 
-console.log('🔐 Access Secret:', config.jwtSecret);
-console.log('🔄 Refresh Secret:', config.jwtRefreshSecret);
-
-
 module.exports = TokenGenerator;
