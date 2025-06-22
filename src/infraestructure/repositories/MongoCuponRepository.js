@@ -1,19 +1,31 @@
-const CuponRepository = require('../../domain/repositories/CuponRepository.js');
-const CuponModel = require('../database/models/CuponModel');
+const mongoose = require('mongoose');
+const cuponSchema = require('../../infraestructure/database/models/CuponModel');
 const Cupon = require('../../domain/entities/Cupon');
 
-class MongoCuponRepository extends CuponRepository {
-  async getAll() {
-    const cupons = await CuponModel.find();
-    console.log('Cupons retrieved from MongoDB:', cupons);
-    return cupons.map(p => new Cupon(p.toObject()));
+const CuponModel = mongoose.model('Cupon', cuponSchema);
+
+class MongoCuponRepository {
+  async create(cuponData) {
+    const cuponDoc = new CuponModel(cuponData);
+    const savedDoc = await cuponDoc.save();
+    return new Cupon({
+      id: savedDoc._id,
+      codigo: savedDoc.codigo,
+      descuento: savedDoc.descuento,
+      fechaExpiracion: savedDoc.fechaExpiracion
+    });
   }
 
-  async create(cupon) {
-    const newCupon = await CuponModel.create(cupon);
-    return new Cupon(newCupon.toObject());
+  async findByCodigo(codigo) {
+    const cuponDoc = await CuponModel.findOne({ codigo });
+    if (!cuponDoc) return null;
+    return new Cupon({
+      id: cuponDoc._id,
+      codigo: cuponDoc.codigo,
+      descuento: cuponDoc.descuento,
+      fechaExpiracion: cuponDoc.fechaExpiracion
+    });
   }
 }
 
 module.exports = MongoCuponRepository;
-

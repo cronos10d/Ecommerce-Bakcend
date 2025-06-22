@@ -27,14 +27,20 @@ const orderRoutes = require('./adapters/routes/orderRoutes');
 
 
 const MongoCuponRepository = require('./infraestructure/repositories/MongoCuponRepository');
-const MySQLCuponRepository = require('./infraestructure/repositories/MySQLCuponRepository');
 const CuponController = require('./adapters/controllers/CuponController');
 const cuponRoutes = require('./adapters/routes/cuponRoutes');
+const cuponRepository = new MongoCuponRepository();
+const CreateCupon = require('./application/useCases/CreateCupon');
 
 
+
+//User Repositories and Controllers
 const MongoUserRepository = require('./infraestructure/repositories/MongoUserRepository');
 const MySQLUserRepository = require('./infraestructure/repositories/MySQLUserRepository');
 const UserController = require('./adapters/controllers/UserController');
+
+
+
 
 
 
@@ -70,16 +76,23 @@ app.use('/api/v1/users',express.json(),userRoutes(signUpUseCase));
 
 const cartRepository = dbType === 'mysql' ? new MySQLCartRepository() : new MongoCartRepository();
 const orderRepository = dbType === 'mysql' ? new MySQLOrderRepository() : new MongoOrderRepository();
-const cuponRepository = dbType === 'mysql' ? new MySQLCuponRepository() : new MongoCuponRepository();
+
+
 
 //const userRepository = dbType === 'mysql' ? new MySQLUserRepository() : new MongoUserRepository();
-
+const createCuponUseCase = new CreateCupon(cuponRepository);
 
 const productController = new ProductController(productRepository);
 const cartController = new CartController(cartRepository);
 const orderController = new OrderController(orderRepository);
-//const cuponController = new CuponController(cuponRepository);
+const cuponController = new CuponController(createCuponUseCase);
 //const userController = new UserController(userRepository);
+
+
+
+
+
+
 
 // Configuración de Swagger UI
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
@@ -88,8 +101,11 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 app.use('/api/v1/products',  productRoutes(productController));
 app.use('/api/v1/carts', cartRoutes(cartController));
 app.use('/api/v1/orders', orderRoutes(orderController));
-//app.use('/api/v1/cupons', cuponRoutes(cuponController));
-//app.use('/api/v1/users', userRoutes(userController));
+app.use('/api/v1/cupones', verifyToken, cuponRoutes(cuponController));
+
+
+
+
 
 
 

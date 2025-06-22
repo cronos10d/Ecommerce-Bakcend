@@ -9,6 +9,33 @@ module.exports = (orderController) => {
    *   description: Gestión de órdenes
    */
 
+   /**
+ * @swagger
+ * /api/v1/orders:
+ *   get:
+ *     summary: Obtiene todas las órdenes
+ *     tags: [Orders]
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista de órdenes
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Order'
+ *       401:
+ *         description: No autorizado
+ *       500:
+ *         description: Error del servidor
+ */
+
+  
+  
+  router.post('/', (req, res) => orderController.create(req, res));
+
   /**
    * @swagger
    * /api/v1/orders:
@@ -35,10 +62,7 @@ module.exports = (orderController) => {
    *       401:
    *         description: No autorizado
    */
-  
-  router.post('/', (req, res) => orderController.create(req, res));
-
-  
+ 
 
   
   router.get('/', (req, res) => orderController.getAll(req, res));

@@ -1,7 +1,10 @@
 const express = require('express');
+const isAdmin = require('../middlewares/isAdmin');
 const router = express.Router();
 const authorizeRole = require('../middlewares/AdminProduct');
 const { verifyToken } = require('../middlewares/authJwt');
+
+
 module.exports = (productController) => {
 
   /*
@@ -36,7 +39,8 @@ module.exports = (productController) => {
    */
  
   /* router.post('/', (req, res) => productController.create(req, res));*/
-    router.post('/', verifyToken, authorizeRole(['admin']), (req, res) => productController.create(req, res));
+
+    router.post('/',isAdmin, (req,res)=>productController.create(req,res));
     /**
    * @swagger
    * /api/v1/products:
@@ -71,4 +75,6 @@ module.exports = (productController) => {
 
   
 };
+
+
 

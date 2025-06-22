@@ -7,12 +7,12 @@ class SignUp {
     this.userRepository  = userRepository;
     this.passwordHasher  = passwordHasher;
   }
- 
+
   /**
    * @param {{ username: string, password: string }} input
    * @returns {Promise<{ id: string, username: string, roles: string[] }>}
    */
-  async execute({ username, password }) {
+  async execute({ username, password, roles,email }) {
     // 1. Verificar unicidad
     const existing = await this.userRepository.findByUsername(username);
     if (existing) {
@@ -23,12 +23,13 @@ class SignUp {
     // 3. Crear en repositorio
     const created = await this.userRepository.create({
       username,
-      password: hashed
-    });
+      email,
+      password: hashed,
+      roles
+      });
     // 4. Devolver DTO
     return { id: created._id.toString(), username: created.username, roles: created.roles };
   }
 }
- 
-module.exports = SignUp;
- 
+
+module.exports = SignUp;
